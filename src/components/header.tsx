@@ -35,7 +35,7 @@ export function Header() {
             <a
               key={l.href}
               href={l.href}
-              className="hidden hover:text-ink sm:block"
+              className="hidden transition-colors hover:text-ink sm:block"
             >
               {l.label}
             </a>
@@ -46,7 +46,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="menu-movil"
             onClick={() => setOpen(!open)}
-            className="h-10 cursor-pointer rounded-full border border-line bg-card px-4 text-ink sm:hidden"
+            className="press h-10 cursor-pointer rounded-full border border-line bg-card px-4 text-ink sm:hidden"
           >
             {open ? "Cerrar" : "Menú"}
           </button>

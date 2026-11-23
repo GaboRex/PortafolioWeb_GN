@@ -36,9 +36,30 @@
   --font-sans: var(--font-plex);
 }
 
+/* Curva de salida fuerte: las CSS por defecto son demasiado blandas.
+   Reemplaza la utilidad `ease-out` de Tailwind y queda disponible como var. */
+@theme {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
+  /* Sin el destello gris/azul al tocar en celular; cada control tiene su :active. */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Los controles no seleccionan su texto al mantener presionado y responden sin demora. */
+button,
+[role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
 }
 body {
   background: var(--paper);
@@ -56,6 +77,61 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Respuesta al presionar: cualquier elemento que se pueda tocar se hunde un poco. */
+@utility press {
+  transition-property: transform, color, background-color, border-color;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out);
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Visor de capturas (<dialog>): entra en 220ms y sale más rápido, en 150ms. */
+.lightbox {
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out),
+    overlay 150ms allow-discrete,
+    display 150ms allow-discrete;
+}
+.lightbox[open] {
+  opacity: 1;
+  transform: scale(1);
+  transition-duration: 220ms;
+}
+@starting-style {
+  .lightbox[open] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+.lightbox::backdrop {
+  background: rgb(0 0 0 / 0);
+  transition:
+    background-color 150ms ease,
+    overlay 150ms allow-discrete,
+    display 150ms allow-discrete;
+}
+.lightbox[open]::backdrop {
+  background: rgb(0 0 0 / 0.85);
+  transition-duration: 220ms;
+}
+@starting-style {
+  .lightbox[open]::backdrop {
+    background: rgb(0 0 0 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Con movimiento reducido se mantiene solo el fundido. */
+  .lightbox,
+  .lightbox[open] {
+    transform: none;
   }
 }
 

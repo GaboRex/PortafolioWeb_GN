@@ -125,7 +125,7 @@ export function Carousel({ shots, title, variant = "desktop" }: Props) {
         tabIndex={0}
         onScroll={onScroll}
         onKeyDown={onKeyDown}
-        className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] md:absolute md:inset-0 [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] md:absolute md:inset-0 [&::-webkit-scrollbar]:hidden"
       >
         {shots.map((s, i) => {
           const framed = (s.device ?? variant) === "desktop";
@@ -180,7 +180,7 @@ export function Carousel({ shots, title, variant = "desktop" }: Props) {
             type="button"
             onClick={() => goTo(index - 1)}
             aria-label="Imagen anterior"
-            className="absolute left-2 top-1/2 hidden h-10 w-10 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-line bg-paper/85 text-ink backdrop-blur transition-colors hover:border-accent hover:text-accent md:grid"
+            className="absolute left-2 top-1/2 hidden h-10 w-10 -translate-y-1/2 press cursor-pointer place-items-center rounded-full border border-line bg-paper/85 text-ink backdrop-blur hover:border-accent hover:text-accent md:grid"
           >
             <Chevron dir="left" />
           </button>
@@ -188,7 +188,7 @@ export function Carousel({ shots, title, variant = "desktop" }: Props) {
             type="button"
             onClick={() => goTo(index + 1)}
             aria-label="Imagen siguiente"
-            className="absolute right-2 top-1/2 hidden h-10 w-10 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-line bg-paper/85 text-ink backdrop-blur transition-colors hover:border-accent hover:text-accent md:grid"
+            className="absolute right-2 top-1/2 hidden h-10 w-10 -translate-y-1/2 press cursor-pointer place-items-center rounded-full border border-line bg-paper/85 text-ink backdrop-blur hover:border-accent hover:text-accent md:grid"
           >
             <Chevron dir="right" />
           </button>
@@ -201,10 +201,10 @@ export function Carousel({ shots, title, variant = "desktop" }: Props) {
                 onClick={() => goTo(i)}
                 aria-label={`Ir a la imagen ${i + 1}`}
                 aria-current={i === index}
-                className="grid h-7 w-7 cursor-pointer place-items-center"
+                className="press grid h-7 w-7 cursor-pointer place-items-center"
               >
                 <span
-                  className={`h-2 rounded-full transition-all ${
+                  className={`h-2 rounded-full transition-[width,background-color] duration-200 ease-out ${
                     i === index ? "w-5 bg-accent" : "w-2 bg-ink/30"
                   }`}
                 />
@@ -221,8 +221,7 @@ export function Carousel({ shots, title, variant = "desktop" }: Props) {
         onClick={(e) => {
           if (e.target === e.currentTarget) dialog.current?.close();
         }}
-        onClose={() => setZoomed(null)}
-        className="m-auto max-h-none max-w-none overflow-visible bg-transparent p-0 backdrop:bg-black/85 backdrop:backdrop-blur-sm"
+        className="lightbox m-auto max-h-none max-w-none overflow-visible bg-transparent p-0"
       >
         {zoomed && (
           <div className="relative">
@@ -240,7 +239,7 @@ export function Carousel({ shots, title, variant = "desktop" }: Props) {
               autoFocus
               onClick={() => dialog.current?.close()}
               aria-label="Cerrar captura ampliada"
-              className="absolute -top-3 -right-3 grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-paper text-ink shadow-lg hover:text-accent"
+              className="press absolute -top-3 -right-3 grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-paper text-ink shadow-lg hover:text-accent"
             >
               <svg {...svg} className="h-5 w-5">
                 <path d="M18 6L6 18M6 6l12 12" />

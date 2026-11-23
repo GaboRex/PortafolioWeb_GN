@@ -1,21 +1,20 @@
 import { PROJECTS } from "@/data/projects";
 import { Carousel } from "./carousel";
-import { Reveal } from "./reveal";
 
 export function Projects() {
   return (
     <section id="proyectos" className="border-t border-line py-16 md:py-24">
       <div className="shell">
-        <Reveal>
-          <h2 className="mb-9 font-display text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight">
-            Proyectos
-          </h2>
-        </Reveal>
+        <h2 className="mb-9 font-display text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight">
+          Proyectos
+        </h2>
 
         <div className="grid gap-6">
-          {PROJECTS.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.1} className="flex">
-             <article className="flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-card transition-colors duration-200 hover:border-accent md:grid md:min-h-[560px] md:grid-cols-[7fr_5fr] lg:min-h-[640px]">
+          {PROJECTS.map((p) => (
+            <article
+              key={p.title}
+              className="flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-card md:grid md:min-h-[560px] md:grid-cols-[7fr_5fr] lg:min-h-[640px]"
+            >
   {p.images?.length ? (
     <Carousel
       shots={p.images}
@@ -81,7 +80,7 @@ export function Projects() {
                           href={p.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="underline underline-offset-4 hover:text-accent"
+                          className="underline underline-offset-4 transition-colors hover:text-accent"
                         >
                           Ver en vivo
                         </a>
@@ -91,7 +90,7 @@ export function Projects() {
                           href={p.repo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="underline underline-offset-4 hover:text-accent"
+                          className="underline underline-offset-4 transition-colors hover:text-accent"
                         >
                           Ver código
                         </a>
@@ -100,7 +99,6 @@ export function Projects() {
                   )}
                 </div>
               </article>
-            </Reveal>
           ))}
         </div>
       </div>

@@ -22,7 +22,7 @@ export function ThemeToggle() {
       type="button"
       aria-label="Cambiar entre modo claro y oscuro"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-card text-ink transition-colors hover:border-accent hover:text-accent"
+      className="press grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-card text-ink hover:border-accent hover:text-accent"
     >
       {/* Luna: visible en modo claro */}
       <svg {...icon} className="h-[18px] w-[18px] dark:hidden">

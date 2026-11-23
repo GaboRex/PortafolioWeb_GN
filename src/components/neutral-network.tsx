@@ -20,6 +20,20 @@ export function NeuralNetwork() {
     let lastWidth = 0;
     let frame = 0;
 
+    // El color se lee una vez y solo se vuelve a leer al cambiar de tema;
+    // getComputedStyle en cada cuadro fuerza un recálculo de estilos 60 veces por segundo.
+    const readColor = () =>
+      getComputedStyle(document.documentElement).getPropertyValue("--dot").trim();
+    let rgb = readColor();
+    const themeObserver = new MutationObserver(() => {
+      rgb = readColor();
+      if (calm) draw();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       w = window.innerWidth;
@@ -49,9 +63,6 @@ export function NeuralNetwork() {
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      const rgb = getComputedStyle(document.documentElement)
-        .getPropertyValue("--dot")
-        .trim();
       // 1 arriba de todo, baja hasta 0.4 al alejarte del hero
       const fade = 1 - 0.6 * Math.min(window.scrollY / (h * 0.8), 1);
 
@@ -116,6 +127,7 @@ export function NeuralNetwork() {
 
     return () => {
       cancelAnimationFrame(frame);
+      themeObserver.disconnect();
       window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onMove);

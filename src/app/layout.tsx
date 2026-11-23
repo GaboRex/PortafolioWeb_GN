@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
@@ -17,6 +17,14 @@ export const metadata: Metadata = {
   title: "Gabriel Neme · Fullstack & Systems Engineer",
   description:
     "Portafolio de Gabriel Giovanni Neme Benitez: aplicaciones web con TypeScript, Next.js, SQL e inteligencia artificial.",
+};
+
+// La barra del navegador en celular toma el color de fondo de cada tema.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#eef2f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1a2e" },
+  ],
 };
 
 export default function RootLayout({

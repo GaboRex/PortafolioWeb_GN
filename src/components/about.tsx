@@ -1,5 +1,4 @@
 import { SERVICES, STACK } from "@/data/profile";
-import { Reveal } from "./reveal";
 
 const svg = {
   "aria-hidden": true,
@@ -40,7 +39,7 @@ export function About() {
     <section id="sobre" className="border-t border-line py-16 md:py-24">
       <div className="shell grid gap-14">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr]">
-          <Reveal>
+          <div>
             <h2 className="mb-9 font-display text-[clamp(2rem,5vw,3.25rem)] font-bold tracking-tight">
               Sobre mí
             </h2>
@@ -61,9 +60,9 @@ export function About() {
               Mi enfoque: entender el problema del negocio primero y después
               elegir la tecnología, no al revés.
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.15} className="grid content-start gap-6">
+          <div className="grid content-start gap-6">
             {STACK.map(({ group, items }) => (
               <div key={group}>
                 <h3 className="mb-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted">
@@ -81,10 +80,10 @@ export function About() {
                 </ul>
               </div>
             ))}
-          </Reveal>
+          </div>
         </div>
 
-        <Reveal>
+        <div>
           <h3 className="mb-6 font-display text-2xl font-bold md:text-3xl">
             Qué hago
           </h3>
@@ -92,7 +91,7 @@ export function About() {
             {SERVICES.map((s) => (
               <li
                 key={s.title}
-                className="flex flex-col gap-3 rounded-2xl border border-line bg-card p-6 transition-colors duration-200 hover:border-accent"
+                className="flex flex-col gap-3 rounded-2xl border border-line bg-card p-6"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/12 text-accent">
                   {ICONS[s.icon]}
@@ -102,7 +101,7 @@ export function About() {
               </li>
             ))}
           </ul>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
